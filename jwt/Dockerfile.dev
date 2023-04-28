@@ -1,0 +1,8 @@
+FROM node:20
+
+WORKDIR /app
+ENV NODE_ENV=development
+RUN npm install -g nodemon ts-node
+
+USER root
+CMD nodemon

@@ -1,0 +1,24 @@
+services:
+    jwt_back:
+        container_name: jwt
+        build:
+            context: ./jwt
+            dockerfile: Dockerfile.dev
+        restart: always
+        depends_on:
+            - jwt_db
+        volumes:
+            - $PWD/jwt:/app
+
+    jwt_db:
+        container_name: jwt_db
+        image: redis
+        restart: always
+        volumes:
+            - $PWD/dbs/jwt:/data
+        ports:
+            - 6379:6379
+        environment:
+            - JWT_SECRET=$JWT_SECRET
+            - JWT_ACCESS_EXPIRE=$JWT_ACCESS_EXPIRE
+            - JWT_REFRESH_EXPIRE=$JWT_REFRESH_EXPIRE
